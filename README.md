@@ -29,15 +29,24 @@ Vercel에서는 같은 두 값을 Project Settings → Environment Variables 에
 
 ## 데이터베이스 스키마
 
+4주차 교안의 `urls` 테이블에 6주차 교안의 사용량 컬럼을 합친 형태입니다.
+
 ```sql
-CREATE TABLE IF NOT EXISTS urls (
-  id              SERIAL PRIMARY KEY,
-  short_code      VARCHAR(16) NOT NULL UNIQUE,
-  original_url    TEXT        NOT NULL,
-  click_count     INTEGER     NOT NULL DEFAULT 0,
-  created_at      TIMESTAMPTZ NOT NULL DEFAULT NOW(),
+CREATE TABLE urls (
+  short_code      VARCHAR(6)    PRIMARY KEY,
+  original_url    VARCHAR(2048) NOT NULL UNIQUE,
+  created_at      TIMESTAMPTZ   NOT NULL DEFAULT NOW(),
+  click_count     BIGINT        NOT NULL DEFAULT 0,
   last_clicked_at TIMESTAMPTZ
 );
+```
+
+이미 4주차 테이블을 만들어 둔 경우에는 6주차 컬럼만 추가합니다.
+
+```sql
+ALTER TABLE urls
+ADD COLUMN click_count BIGINT NOT NULL DEFAULT 0,
+ADD COLUMN last_clicked_at TIMESTAMPTZ;
 ```
 
 ## API
