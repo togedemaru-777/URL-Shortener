@@ -53,12 +53,12 @@ export default function Home() {
     setError("");
     setResult("");
 
-    // const validationError = validateUrl(originalUrl);
+    const validationError = validateUrl(originalUrl);
 
-    // if (validationError !== null) {
-    //   setError(validationError);
-    //   return;
-    // }
+    if (validationError !== null) {
+      setError(validationError);
+      return;
+    }
 
     setIsLoading(true);
 

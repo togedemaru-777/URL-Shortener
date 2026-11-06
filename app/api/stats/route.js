@@ -29,14 +29,16 @@ function forbiddenResponse() {
 }
 
 export async function GET(request) {
+  // 인증/인가를 DB 조회보다 먼저 검사해야
+  // 인증 없는 요청에 항상 401이 내려갑니다.
+  const user = authenticate(request);
+  if (!user) return authenticationRequiredResponse();
+  if (!authorize(user, "stats:read")) return forbiddenResponse();
+
   try {
     const summary = await getSummaryStats();
     const topUrl = await getTopUrl();
     const urls = await getUrlStats();
-
-    const user = authenticate(request);
-    if (!user) return authenticationRequiredResponse();
-    if (!authorize(user, "stats:read")) return forbiddenResponse();
 
     return Response.json(
       {
