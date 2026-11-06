@@ -1,7 +1,6 @@
 # URL Shortener
 
-URL Shortener 서비스입니다.
-Next.js(App Router) + Neon(Postgres) + Vercel 로 구성했습니다.
+과제 제출, URL Shortener 서비스입니다.
 
 ## 기능
 
@@ -109,12 +108,6 @@ Vercel은 proxy를 거치므로 `x-forwarded-host`, `host`, `VERCEL_URL`,
 입력 URL의 host가 그 집합에 있으면 경로나 http/https 여부와 무관하게 `400`으로 차단합니다.
 (무한 redirect 방지)
 
-## 자동 점검
-
-```bash
-python -m pip install requests
-python iscu_url_shortener_check.py --url https://my-app.vercel.app
-```
 
 ## GitHub에 올리지 말아야 할 것
 
